@@ -1,7 +1,30 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 400px;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto;
+}
+
+.title {
+  margin-top: 50px;
+}
+
+.contactsContainer {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: -100px;
+}
+
+.contactsHeader {
+  margin-top: -100px;
+  text-align: center;
+}
+
+.contactsForm {
+  width: 100%;
+  margin-bottom: 20px;
 }

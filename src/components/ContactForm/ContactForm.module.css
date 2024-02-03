@@ -1,31 +1,40 @@
 .formContainer {
-  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  width: 300px;
 }
 
 .inputWrapper {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .label {
   margin-bottom: 5px;
-  color: white;
-  background-color: lightpink;
 }
 
 .input {
-  padding: 5px;
+  width: 100%;
+  padding: 10px;
   border-radius: 3px;
-  border: 1px solid gray;
+  border: 1px solid #ccc;
+}
+
+.submitButtonWrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .submitButton {
-  margin-top: 10px;
-  padding: 8px;
+  padding: 10px;
   border-radius: 5px;
   background-color: pink;
   color: white;
   border: none;
   cursor: pointer;
+  margin-top: 10px;
 }

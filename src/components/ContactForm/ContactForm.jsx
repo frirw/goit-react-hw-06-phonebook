@@ -1,66 +1,68 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 import css from './ContactForm.module.css';
 
-const ContactForm = ({ submit }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
+
   const [formData, setFormData] = useState({ name: '', number: '' });
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (formData.name.trim() === '' || formData.number.trim() === '') {
-      alert('Please fill in both name and number fields.');
-      return;
+  const inputChange = event => {
+    const { name, value } = event.currentTarget;
+    setFormData(prevForm => ({ ...prevForm, [name]: value }));
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const isDuplicate =
+      formData.name && contacts.some(contact => contact.name === formData.name);
+
+    if (isDuplicate) {
+      alert(`${formData.name} is already in contacts`);
+      reset();
+    } else {
+      dispatch(addContact(formData));
+      reset();
     }
-    submit(formData);
-    reset();
   };
 
   const reset = () => {
     setFormData({ name: '', number: '' });
   };
 
-  const handleChange = ({ target: { value, name } }) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   return (
-    <form className={css.formContainer} onSubmit={handleSubmit}>
-      <div className={css.inputWrapper}>
-        <label htmlFor="Name" className={css.label}>
-          Name
-        </label>
-        <input
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          required
-          value={formData.name}
-          onChange={handleChange}
-          name="name"
-          type="text"
-          id="Name"
-          className={css.input}
-        />
-      </div>
-      <div className={css.inputWrapper}>
-        <label htmlFor="Number" className={css.label}>
-          Number
-        </label>
-        <input
-          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-          required
-          value={formData.number}
-          onChange={handleChange}
-          name="number"
-          type="tel"
-          id="Number"
-          className={css.input}
-        />
-      </div>
-      <button type="submit" className={css.submitButton}>
-        Add contact
-      </button>
-    </form>
+    <div className={css.formContainer}>
+      <form onSubmit={handleSubmit} className={css.form}>
+        <div className={css.inputWrapper}>
+          <label className={css.label}>Name</label>
+          <input
+            className={css.input}
+            onChange={inputChange}
+            type="text"
+            name="name"
+            value={formData.name}
+          />
+        </div>
+        <div className={css.inputWrapper}>
+          <label className={css.label}>Number</label>
+          <input
+            className={css.input}
+            onChange={inputChange}
+            type="tel"
+            name="number"
+            value={formData.number}
+          />
+        </div>
+        <div className={css.submitButtonWrapper}>
+          <button type="submit" className={css.submitButton}>
+            Add contact
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -1,12 +1,18 @@
 .filterLabel {
   display: block;
+  margin-bottom: 10px;
+}
+
+.labelText {
   margin-bottom: 5px;
   color: white;
   background-color: lightpink;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .filterInput {
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
